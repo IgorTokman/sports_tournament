@@ -1,9 +1,7 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="round")
@@ -15,7 +13,7 @@ public class Round {
 
     @OneToMany(mappedBy = "round", cascade=CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval=true)
-    private Set<Match> matches;
+    private Set<Match> matches = new LinkedHashSet<>();
 
     @Temporal(TemporalType.DATE)
     @Column
@@ -41,6 +39,10 @@ public class Round {
         this.matches = matches;
     }
 
+    public boolean addMatch(Match match) {
+        return matches.add(match);
+    }
+
     public long getId() {
         return id;
     }
@@ -55,5 +57,14 @@ public class Round {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Round{" +
+                "id=" + id +
+                ", matches=" + matches +
+                ", date=" + date +
+                '}';
     }
 }

@@ -1,6 +1,6 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest

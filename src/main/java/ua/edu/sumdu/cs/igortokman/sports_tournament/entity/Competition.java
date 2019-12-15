@@ -15,6 +15,9 @@ public class Competition {
     @Column(name = "number_of_participants")
     private long numberOfParticipants;
 
+    @Column(name = "title")
+    private String title;
+
     @OneToMany(mappedBy = "competition", cascade=CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval=true)
     private Set<Round> schedule;
@@ -25,6 +28,14 @@ public class Competition {
 
     public void setNumberOfParticipants(long numberOfParticipants) {
         this.numberOfParticipants = numberOfParticipants;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public long getId() {
