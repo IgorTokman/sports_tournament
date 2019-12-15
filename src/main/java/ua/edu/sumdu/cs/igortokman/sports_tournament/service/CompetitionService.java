@@ -11,7 +11,7 @@ import java.util.*;
 
 public class CompetitionService {
 
-    private static final Team FAKE_TEAM = new Team("Fake team");
+    private static final Team FAKE_TEAM = null;
     private static final int MATCHES_PER_TEAM = 2;
 
     @Autowired
