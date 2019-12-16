@@ -77,10 +77,7 @@ public class Match {
 
     @Override
     public int hashCode() {
-        // it must meet the requirement -
-        // if the equals returns true, then the hashCode method should also produce identical values
-        // TODO: rewrite with the correct implementation of the hash method
-        return 42;
+        return teams != null ? teams.hashCode() : 0;
     }
 
     @Override

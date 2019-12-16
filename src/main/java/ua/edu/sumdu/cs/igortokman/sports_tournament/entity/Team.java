@@ -15,16 +15,6 @@ public class Team {
     @Column(name = "title")
     private String title;
 
-    // A list of results in which the team was the winner
-    @OneToMany(mappedBy = "winner", cascade=CascadeType.ALL,
-            fetch = FetchType.LAZY, orphanRemoval=true)
-    private List<Result> winners;
-
-    // A list of results in which the team was the loser
-    @OneToMany(mappedBy = "defeated", cascade=CascadeType.ALL,
-            fetch = FetchType.LAZY, orphanRemoval=true)
-    private List<Result> defeateds;
-
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             fetch = FetchType.LAZY, mappedBy = "teams")
     private Set<Match> matches;
@@ -34,22 +24,6 @@ public class Team {
     }
 
     public Team() {
-    }
-
-    public List<Result> getWinners() {
-        return winners;
-    }
-
-    public void setWinners(List<Result> winners) {
-        this.winners = winners;
-    }
-
-    public List<Result> getDefeateds() {
-        return defeateds;
-    }
-
-    public void setDefeateds(List<Result> defeateds) {
-        this.defeateds = defeateds;
     }
 
     public long getId() {
@@ -85,8 +59,6 @@ public class Team {
 
         if (id != team.id) return false;
         if (title != null ? !title.equals(team.title) : team.title != null) return false;
-        if (winners != null ? !winners.equals(team.winners) : team.winners != null) return false;
-        if (defeateds != null ? !defeateds.equals(team.defeateds) : team.defeateds != null) return false;
         return !(matches != null ? !matches.equals(team.matches) : team.matches != null);
 
     }
@@ -95,8 +67,6 @@ public class Team {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (winners != null ? winners.hashCode() : 0);
-        result = 31 * result + (defeateds != null ? defeateds.hashCode() : 0);
         result = 31 * result + (matches != null ? matches.hashCode() : 0);
         return result;
     }

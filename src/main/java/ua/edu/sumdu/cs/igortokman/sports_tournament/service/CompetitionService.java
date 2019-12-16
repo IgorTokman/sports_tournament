@@ -48,12 +48,20 @@ public class CompetitionService {
 
         List<Round> rounds = new ArrayList<>();
         int numberOfRounds = teams.size() * MATCHES_PER_TEAM - 1;
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
         for (int i = 1; i < numberOfRounds; i++) {
             Round round = new Round();
+            c.add(Calendar.DATE, 1);
+            round.setDate(c.getTime());
+
 
             Iterator<Match> iterator = matches.iterator();
             while (iterator.hasNext()) {
-                if (round.addMatch(iterator.next())) {
+                Match next = iterator.next();
+                if (!round.containsMatch(next)) {
+                    round.addMatch(next);
                     iterator.remove();
                 }
             }

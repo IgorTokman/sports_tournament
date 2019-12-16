@@ -13,7 +13,7 @@ public class Round {
 
     @OneToMany(mappedBy = "round", cascade=CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval=true)
-    private Set<Match> matches = new LinkedHashSet<>();
+    private List<Match> matches = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)
     @Column
@@ -31,11 +31,11 @@ public class Round {
         this.competition = competition;
     }
 
-    public Set<Match> getMatches() {
+    public List<Match> getMatches() {
         return matches;
     }
 
-    public void setMatches(Set<Match> matches) {
+    public void setMatches(List<Match> matches) {
         this.matches = matches;
     }
 
@@ -66,5 +66,15 @@ public class Round {
                 ", matches=" + matches +
                 ", date=" + date +
                 '}';
+    }
+
+    public boolean containsMatch(Match match) {
+        for (Match item : matches) {
+            if (item.equals(match)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
