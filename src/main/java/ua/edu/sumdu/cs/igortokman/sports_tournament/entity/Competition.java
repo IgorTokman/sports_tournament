@@ -2,6 +2,7 @@ package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,14 +14,14 @@ public class Competition {
     private long id;
 
     @Column(name = "number_of_participants")
-    private long numberOfParticipants;
+    private long numberOfParticipants = 1;
 
     @Column(name = "title")
     private String title;
 
     @OneToMany(mappedBy = "competition", cascade=CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval=true)
-    private Set<Round> schedule;
+    private List<Round> schedule;
 
     public long getNumberOfParticipants() {
         return numberOfParticipants;
@@ -46,11 +47,11 @@ public class Competition {
         this.id = id;
     }
 
-    public Set<Round> getSchedule() {
+    public List<Round> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(Set<Round> schedule) {
+    public void setSchedule(List<Round> schedule) {
         this.schedule = schedule;
     }
 }

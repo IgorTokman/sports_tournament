@@ -1,6 +1,7 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.dao.CompetitionRepository;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Competition;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Match;
@@ -9,6 +10,7 @@ import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Team;
 
 import java.util.*;
 
+@Service
 public class CompetitionService {
 
     private static final Team FAKE_TEAM = null;
@@ -68,18 +70,9 @@ public class CompetitionService {
 
             rounds.add(round);
         }
+        competition.setSchedule(rounds);
+        competitionRepository.save(competition);
 
-//        competitionRepository.save(competition);
         return rounds;
-    }
-
-    public static void main(String[] args) {
-        CompetitionService competitionService = new CompetitionService();
-        Competition competition = new Competition();
-        competition.setNumberOfParticipants(3);
-        competition.setTitle("FIRST COMPETITION");
-        List<Round> rounds = competitionService.add(competition);
-        System.out.println(rounds);
-
     }
 }

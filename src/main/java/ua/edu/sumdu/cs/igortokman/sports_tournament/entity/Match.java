@@ -28,6 +28,18 @@ public class Match {
             inverseJoinColumns = @JoinColumn(name = "team_id"))
     private Set<Team> teams = new LinkedHashSet<>();
 
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "round_id")
+    private Round round;
+
+    public Round getRound() {
+        return round;
+    }
+
+    public void setRound(Round round) {
+        this.round = round;
+    }
+
     public boolean isCompleted() {
         return isCompleted;
     }

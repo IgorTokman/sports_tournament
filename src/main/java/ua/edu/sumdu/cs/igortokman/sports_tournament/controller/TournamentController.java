@@ -3,14 +3,26 @@ package ua.edu.sumdu.cs.igortokman.sports_tournament.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Competition;
+import ua.edu.sumdu.cs.igortokman.sports_tournament.service.CompetitionService;
 
 import java.util.List;
 
 @Controller
-@RequestMapping(value="/tournament")
 public class TournamentController {
 
+    @Autowired
+    CompetitionService competitionService;
+
+    @GetMapping("/")
+    public String getCompetitions(Model model) {
+        model.addAttribute("competition", new Competition());
+        return "index";
+    }
+
+    @PostMapping("/")
+    public String createCompetition(@ModelAttribute Competition competition) {
+        return "main";
+    }
 }
