@@ -7,7 +7,7 @@ import java.util.*;
 @Table(name="round")
 public class Round {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "round_id")
     private long id;
 

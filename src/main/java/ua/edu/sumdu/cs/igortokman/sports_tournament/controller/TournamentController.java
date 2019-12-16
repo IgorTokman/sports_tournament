@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Competition;
+import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Round;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.service.CompetitionService;
 
 import java.util.List;
@@ -22,7 +23,8 @@ public class TournamentController {
     }
 
     @PostMapping("/")
-    public String createCompetition(@ModelAttribute Competition competition) {
+    public String createCompetition(@ModelAttribute Competition competition, Model model) {
+        model.addAttribute("rounds", competitionService.add(competition));
         return "main";
     }
 }

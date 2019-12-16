@@ -13,7 +13,7 @@ import java.util.*;
 @Service
 public class CompetitionService {
 
-    private static final Team FAKE_TEAM = null;
+    private static final Team FAKE_TEAM = new Team("FAKE TEAM");
     private static final int MATCHES_PER_TEAM = 2;
 
     @Autowired
@@ -72,6 +72,7 @@ public class CompetitionService {
         }
         competition.setSchedule(rounds);
         competitionRepository.save(competition);
+        System.out.println(rounds);
 
         return rounds;
     }

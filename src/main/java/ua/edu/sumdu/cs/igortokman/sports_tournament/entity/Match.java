@@ -10,7 +10,7 @@ import java.util.Set;
 @Table(name="match")
 public class Match {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "match_id")
     private long id;
 
