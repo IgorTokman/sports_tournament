@@ -1,6 +1,8 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JsonParser;
+import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import ua.edu.sumdu.cs.igortokman.sports_tournament.service.CompetitionService;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @Controller
 public class TournamentController {
@@ -64,10 +67,15 @@ public class TournamentController {
         return competitionService.getMatchesByCompetitionId(id, ((null != status) && status.equalsIgnoreCase(COMPLETED_STATUS)));
     }
 
-    @RequestMapping(value = "/competition/{id}", method = RequestMethod.POST)
-    public ResponseEntity<Object> updateMatch(@PathVariable Long id, @RequestBody UpdateMatchInfo info) {
+    @RequestMapping(value = "/match/", method = RequestMethod.POST)
+    public ResponseEntity<Object> updateMatch(@RequestBody String result) {
 
-        Match match = competitionService.updateCompetitionMatch(id, info);
+        JsonParser springParser = JsonParserFactory.getJsonParser();
+        Map<String, Object> data = springParser.parseMap(result);
+
+        Match match = competitionService.updateMatchResult(((Integer) data.get("match")).longValue(),
+                ((Integer) data.get("winner")).longValue(), (Boolean) data.get("is_dead_heat"));
+
         return ResponseEntity.ok(match);
     }
 }

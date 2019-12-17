@@ -15,7 +15,7 @@ public class Result {
     @Column(name = "result_id")
     private long id;
 
-    @OneToOne(mappedBy = "result", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "result")
     @JsonBackReference
     private Match match;
 
@@ -23,15 +23,9 @@ public class Result {
     private boolean isDeadHeat;
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "winner_id", referencedColumnName = "team_id", insertable=false, updatable=false)
+    @JoinColumn(name = "team_id")
     @JsonBackReference
     private Team winner;
-
-
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "defeated_id", referencedColumnName ="team_id", insertable=false, updatable=false)
-    @JsonBackReference
-    private Team defeated;
 
     @Override
     public String toString() {
@@ -40,7 +34,6 @@ public class Result {
                 ", match=" + match +
                 ", isDeadHeat=" + isDeadHeat +
                 ", winner=" + winner +
-                ", defeated=" + defeated +
                 '}';
     }
 
@@ -74,13 +67,5 @@ public class Result {
 
     public void setWinner(Team winner) {
         this.winner = winner;
-    }
-
-    public Team getDefeated() {
-        return defeated;
-    }
-
-    public void setDefeated(Team defeated) {
-        this.defeated = defeated;
     }
 }

@@ -1,10 +1,12 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.JsonParser;
+import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.stereotype.Service;
-import ua.edu.sumdu.cs.igortokman.sports_tournament.controller.UpdateMatchInfo;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.dao.CompetitionRepository;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.dao.MatchRepository;
+import ua.edu.sumdu.cs.igortokman.sports_tournament.dao.TeamRepository;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.*;
 
 import java.util.*;
@@ -20,6 +22,9 @@ public class CompetitionService {
 
     @Autowired
     private MatchRepository matchRepository;
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     public List<Competition> getCompetitionsByCompetitionTitle(String title) {
 
@@ -114,18 +119,16 @@ public class CompetitionService {
         return competition.getId();
     }
 
-    public Match updateCompetitionMatch(Long id, UpdateMatchInfo info) {
-        Competition competition = competitionRepository.findOne(id);
+    public Match updateMatchResult(Long matchId, Long winnerId, Boolean isDeadHeat) {
+        Match match = matchRepository.findOne(matchId);
 
-        System.out.println("info");
-        System.out.println(info);
-
-        Match match = matchRepository.findOne(info.getMatch());
         Result result = new Result();
-        info.getWinner()
-        result.setWinner();
-        match.setResult(result);
+        result.setWinner(teamRepository.findOne(winnerId));
+        result.setIsDeadHeat(isDeadHeat);
+        match.setIsCompleted(true);
 
+        match.setResult(result);
+        matchRepository.save(match);
 
         return null;
     }
