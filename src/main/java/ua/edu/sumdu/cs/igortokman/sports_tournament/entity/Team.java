@@ -1,5 +1,7 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -15,8 +17,9 @@ public class Team {
     @Column(name = "title")
     private String title;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH},
             fetch = FetchType.LAZY, mappedBy = "teams")
+    @JsonBackReference
     private Set<Match> matches;
 
     public Team(String title) {

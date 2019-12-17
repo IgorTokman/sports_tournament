@@ -24,10 +24,9 @@
             <div class="card">
                 <div class="card-header" th:text="'Round#' + ${round.id}" >Round Title</div>
                 <div class="card-body" th:each="match: ${round.matches}">
-                    <div class="row" th:each="team: ${match.teams}">
-                        <div class="col" th:text="${team.title}">Team#1</div>
-                        <div class="col" th:text="${team.title}">Team#2</div>
-                        <div class="w-100"></div>
+                    <div class="row">
+                        <div class="col" th:each="team: ${match.teams}" th:text="${team.title}">Team#1</div>
+                        <!--<div class="w-100"></div>-->
                     </div>
                     <span class="badge badge-pill badge-primary">2019-12-11 15:30:56</span>
                 </div>

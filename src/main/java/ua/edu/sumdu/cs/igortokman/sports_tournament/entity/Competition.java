@@ -1,5 +1,7 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +22,7 @@ public class Competition {
     private String title;
 
     @OneToMany(mappedBy = "competition", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+    @JsonManagedReference
     private List<Round> rounds;
 
     public long getNumberOfParticipants() {

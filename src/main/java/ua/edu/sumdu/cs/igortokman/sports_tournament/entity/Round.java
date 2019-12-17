@@ -1,5 +1,8 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -13,6 +16,7 @@ public class Round {
 
     @OneToMany(mappedBy = "round", cascade=CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval=true)
+    @JsonManagedReference
     private List<Match> matches = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)
@@ -21,6 +25,7 @@ public class Round {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "competition_id")
+    @JsonBackReference
     private Competition competition;
 
     public Competition getCompetition() {

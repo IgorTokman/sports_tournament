@@ -19,11 +19,38 @@ public class CompetitionService {
     @Autowired
     private CompetitionRepository competitionRepository;
 
-    public List<Round> get(long id) {
+    public List<Competition> getCompetitionsByCompetitionTitle(String title) {
+
+        return competitionRepository.findByTitle(title);
+    }
+
+    public List<Match> getMatchesByCompetitionId(Long id, boolean isCompleted) {
+
         Competition competition = competitionRepository.findOne(id);
 
-        List<Round> rounds = competition.getRounds();
-        return rounds;
+        if (competition == null) {
+            return new ArrayList<>();
+        }
+
+        List<Match> result = new ArrayList<>();
+        for (Round round : competition.getRounds()) {
+            for (Match match : round.getMatches()) {
+                if (match.isCompleted() == isCompleted) {
+                    result.add(match);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public List<Round> getRoundsByCompetitionId(long id) {
+        Competition competition = competitionRepository.findOne(id);
+        if (competition == null) {
+            return new ArrayList<>();
+        }
+
+        return competition.getRounds();
     }
 
     public long add(Competition competition) {
