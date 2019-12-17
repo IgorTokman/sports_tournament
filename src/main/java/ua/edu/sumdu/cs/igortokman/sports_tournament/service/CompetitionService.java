@@ -2,11 +2,10 @@ package ua.edu.sumdu.cs.igortokman.sports_tournament.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.edu.sumdu.cs.igortokman.sports_tournament.controller.UpdateMatchInfo;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.dao.CompetitionRepository;
-import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Competition;
-import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Match;
-import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Round;
-import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Team;
+import ua.edu.sumdu.cs.igortokman.sports_tournament.dao.MatchRepository;
+import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.*;
 
 import java.util.*;
 
@@ -18,6 +17,9 @@ public class CompetitionService {
 
     @Autowired
     private CompetitionRepository competitionRepository;
+
+    @Autowired
+    private MatchRepository matchRepository;
 
     public List<Competition> getCompetitionsByCompetitionTitle(String title) {
 
@@ -110,5 +112,21 @@ public class CompetitionService {
         competitionRepository.save(competition);
 
         return competition.getId();
+    }
+
+    public Match updateCompetitionMatch(Long id, UpdateMatchInfo info) {
+        Competition competition = competitionRepository.findOne(id);
+
+        System.out.println("info");
+        System.out.println(info);
+
+        Match match = matchRepository.findOne(info.getMatch());
+        Result result = new Result();
+        info.getWinner()
+        result.setWinner();
+        match.setResult(result);
+
+
+        return null;
     }
 }

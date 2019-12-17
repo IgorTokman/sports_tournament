@@ -1,11 +1,13 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Competition;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Match;
+import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Result;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.entity.Round;
 import ua.edu.sumdu.cs.igortokman.sports_tournament.service.CompetitionService;
 
@@ -61,4 +63,12 @@ public class TournamentController {
 
         return competitionService.getMatchesByCompetitionId(id, ((null != status) && status.equalsIgnoreCase(COMPLETED_STATUS)));
     }
+
+    @RequestMapping(value = "/competition/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Object> updateMatch(@PathVariable Long id, @RequestBody UpdateMatchInfo info) {
+
+        Match match = competitionService.updateCompetitionMatch(id, info);
+        return ResponseEntity.ok(match);
+    }
 }
+
