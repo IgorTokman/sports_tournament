@@ -19,8 +19,15 @@ public class CompetitionService {
     @Autowired
     private CompetitionRepository competitionRepository;
 
-    public List<Round> add(Competition competition) {
+    public List<Round> get(long id) {
+        Competition competition = competitionRepository.findOne(id);
 
+        List<Round> rounds = competition.getRounds();
+        return rounds;
+    }
+
+    public long add(Competition competition) {
+        // TODO: break the process of creating a schedule into relevant stages
         List<Team> teams = new ArrayList<>();
         long numberOfParticipants = competition.getNumberOfParticipants();
 
@@ -63,17 +70,18 @@ public class CompetitionService {
             while (iterator.hasNext()) {
                 Match next = iterator.next();
                 if (!round.containsMatch(next)) {
+                    next.setRound(round);
                     round.addMatch(next);
+                    round.setCompetition(competition);
                     iterator.remove();
                 }
             }
 
             rounds.add(round);
         }
-        competition.setSchedule(rounds);
+        competition.setRounds(rounds);
         competitionRepository.save(competition);
-        System.out.println(rounds);
 
-        return rounds;
+        return competition.getId();
     }
 }

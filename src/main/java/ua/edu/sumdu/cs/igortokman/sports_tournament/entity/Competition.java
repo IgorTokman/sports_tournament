@@ -19,9 +19,8 @@ public class Competition {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "competition", cascade=CascadeType.ALL,
-            fetch = FetchType.LAZY, orphanRemoval=true)
-    private List<Round> schedule;
+    @OneToMany(mappedBy = "competition", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+    private List<Round> rounds;
 
     public long getNumberOfParticipants() {
         return numberOfParticipants;
@@ -47,11 +46,21 @@ public class Competition {
         this.id = id;
     }
 
-    public List<Round> getSchedule() {
-        return schedule;
+    public List<Round> getRounds() {
+        return rounds;
     }
 
-    public void setSchedule(List<Round> schedule) {
-        this.schedule = schedule;
+    public void setRounds(List<Round> rounds) {
+        this.rounds = rounds;
+    }
+
+    @Override
+    public String toString() {
+        return "Competition{" +
+                "id=" + id +
+                ", numberOfParticipants=" + numberOfParticipants +
+                ", title='" + title + '\'' +
+                ", rounds=" + rounds +
+                '}';
     }
 }

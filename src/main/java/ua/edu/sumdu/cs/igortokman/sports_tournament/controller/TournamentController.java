@@ -16,15 +16,23 @@ public class TournamentController {
     @Autowired
     CompetitionService competitionService;
 
-    @GetMapping("/")
-    public String getCompetitions(Model model) {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String getCompetition(Model model) {
         model.addAttribute("competition", new Competition());
         return "index";
     }
 
-    @PostMapping("/")
-    public String createCompetition(@ModelAttribute Competition competition, Model model) {
-        model.addAttribute("rounds", competitionService.add(competition));
+    @RequestMapping(value = "/competition", method = RequestMethod.POST)
+    public String createCompetition(@ModelAttribute Competition competition) {
+        long id = competitionService.add(competition);
+
+        return "redirect:/competition/" + id + "/rounds";
+    }
+
+    @RequestMapping(value="/competition/{id}/rounds", method=RequestMethod.GET)
+    public String getRoundsByCompetitionId(@PathVariable Long id, Model model) {
+        List<Round> rounds = competitionService.get(id);
+        model.addAttribute("rounds", rounds);
         return "main";
     }
 }

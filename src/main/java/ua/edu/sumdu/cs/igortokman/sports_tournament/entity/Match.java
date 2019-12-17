@@ -1,10 +1,7 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
 import javax.persistence.*;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="match")
@@ -26,7 +23,7 @@ public class Match {
     @JoinTable(name = "match_team",
             joinColumns = @JoinColumn(name = "match_id"),
             inverseJoinColumns = @JoinColumn(name = "team_id"))
-    private Set<Team> teams = new LinkedHashSet<>();
+    private List<Team> teams = new ArrayList<>();
 
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "round_id")
@@ -64,11 +61,11 @@ public class Match {
         this.result = result;
     }
 
-    public Set<Team> getTeams() {
+    public List<Team> getTeams() {
         return teams;
     }
 
-    public void setTeams(Set<Team> teams) {
+    public void setTeams(List<Team> teams) {
         this.teams = teams;
     }
 
