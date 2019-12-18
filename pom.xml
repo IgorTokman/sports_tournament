@@ -5,9 +5,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>ua.edu.sumdu.cs.igortokman</groupId>
-	<artifactId>springboot-docker-compose</artifactId>
+	<artifactId>sport-tournament</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-docker-compose</name>
+	<name>sport-tournament</name>
 	<description>Sports Tournament</description>
 
 	<parent>
@@ -64,7 +64,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>springboot-docker-compose</finalName>
+					<finalName>sport-tournament</finalName>
 				</configuration>
 			</plugin>
 		</plugins>

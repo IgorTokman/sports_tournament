@@ -20,12 +20,6 @@ public class CompetitionService {
     @Autowired
     private CompetitionRepository competitionRepository;
 
-    @Autowired
-    private MatchRepository matchRepository;
-
-    @Autowired
-    private TeamRepository teamRepository;
-
     public List<Competition> getCompetitionsByCompetitionTitle(String title) {
 
         return competitionRepository.findByTitle(title);
@@ -117,19 +111,5 @@ public class CompetitionService {
         competitionRepository.save(competition);
 
         return competition.getId();
-    }
-
-    public Match updateMatchResult(Long matchId, Long winnerId, Boolean isDeadHeat) {
-        Match match = matchRepository.findOne(matchId);
-
-        Result result = new Result();
-        result.setWinner(teamRepository.findOne(winnerId));
-        result.setIsDeadHeat(isDeadHeat);
-        match.setIsCompleted(true);
-
-        match.setResult(result);
-        matchRepository.save(match);
-
-        return null;
     }
 }

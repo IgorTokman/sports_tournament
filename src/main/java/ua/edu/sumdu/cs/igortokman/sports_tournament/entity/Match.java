@@ -14,8 +14,7 @@ public class Match {
     @Column(name = "match_id")
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "result_id")
+    @OneToOne(mappedBy = "match", cascade = CascadeType.ALL)
     @JsonManagedReference
     private Result result;
 

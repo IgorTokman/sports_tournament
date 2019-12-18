@@ -45,38 +45,5 @@ public class TournamentController {
 
         return "main";
     }
-
-    @GetMapping(path = "/competition/{id}/rounds.json", produces = "application/json")
-    @ResponseBody
-    public List<Round> getScheduleJsonByCompetitionId(@PathVariable Long id) {
-
-        return competitionService.getRoundsByCompetitionId(id);
-    }
-
-    @GetMapping(path = "/competition/{title}/rounds", produces = "application/json")
-    @ResponseBody
-    public List<Competition> getScheduleJsonByCompetitionTitle(@PathVariable String title) {
-
-        return competitionService.getCompetitionsByCompetitionTitle(title);
-    }
-
-    @GetMapping(path = "/competition/{id}/matches/{status}", produces = "application/json")
-    @ResponseBody
-    public List<Match> getMatchesJsonByStatus(@PathVariable Long id, @PathVariable(required = false) String status) {
-
-        return competitionService.getMatchesByCompetitionId(id, ((null != status) && status.equalsIgnoreCase(COMPLETED_STATUS)));
-    }
-
-    @RequestMapping(value = "/match/", method = RequestMethod.POST)
-    public ResponseEntity<Object> updateMatch(@RequestBody String result) {
-
-        JsonParser springParser = JsonParserFactory.getJsonParser();
-        Map<String, Object> data = springParser.parseMap(result);
-
-        Match match = competitionService.updateMatchResult(((Integer) data.get("match")).longValue(),
-                ((Integer) data.get("winner")).longValue(), (Boolean) data.get("is_dead_heat"));
-
-        return ResponseEntity.ok(match);
-    }
 }
 

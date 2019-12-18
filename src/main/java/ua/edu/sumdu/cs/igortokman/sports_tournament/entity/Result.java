@@ -15,7 +15,8 @@ public class Result {
     @Column(name = "result_id")
     private long id;
 
-    @OneToOne(mappedBy = "result")
+    @OneToOne
+    @JoinColumn(name = "match_id")
     @JsonBackReference
     private Match match;
 
