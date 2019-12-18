@@ -1,28 +1,31 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="round")
 public class Round {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "round_id")
     private long id;
 
     @OneToMany(mappedBy = "round", cascade=CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval=true)
-    private Set<Match> matches;
+    @JsonManagedReference
+    private List<Match> matches = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)
     @Column
     private Date date;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "competition_id")
+    @JsonBackReference
     private Competition competition;
 
     public Competition getCompetition() {
@@ -33,12 +36,16 @@ public class Round {
         this.competition = competition;
     }
 
-    public Set<Match> getMatches() {
+    public List<Match> getMatches() {
         return matches;
     }
 
-    public void setMatches(Set<Match> matches) {
+    public void setMatches(List<Match> matches) {
         this.matches = matches;
+    }
+
+    public boolean addMatch(Match match) {
+        return matches.add(match);
     }
 
     public long getId() {
@@ -55,5 +62,24 @@ public class Round {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Round{" +
+                "id=" + id +
+                ", matches=" + matches +
+                ", date=" + date +
+                '}';
+    }
+
+    public boolean containsMatch(Match match) {
+        for (Match item : matches) {
+            if (item.equals(match)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

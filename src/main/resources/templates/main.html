@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Schedule</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+
+    <style>
+        .col-sm-6 {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <!-- Card 1 -->
+        <div class="col-sm-6" th:each="round: ${rounds}">
+            <div class="card">
+                <div class="card-header" th:text="'Round#' + ${round.id}" >Round Title</div>
+                <div class="card-body" th:each="match: ${round.matches}">
+                    <div class="row">
+                        <div class="col" th:each="team: ${match.teams}" th:text="${team.title}">Team#1</div>
+                        <!--<div class="w-100"></div>-->
+                    </div>
+                    <span class="badge badge-pill badge-primary">2019-12-11 15:30:56</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  sport-tournament-app-container:
+    image: sport-tournament-app:3
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"

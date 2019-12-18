@@ -1,23 +1,29 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name="competition")
 public class Competition {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "competition_id")
     private long id;
 
     @Column(name = "number_of_participants")
-    private long numberOfParticipants;
+    private long numberOfParticipants = 1;
 
-    @OneToMany(mappedBy = "competition", cascade=CascadeType.ALL,
-            fetch = FetchType.LAZY, orphanRemoval=true)
-    private Set<Round> schedule;
+    @Column(name = "title")
+    private String title;
+
+    @OneToMany(mappedBy = "competition", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+    @JsonManagedReference
+    private List<Round> rounds;
 
     public long getNumberOfParticipants() {
         return numberOfParticipants;
@@ -25,6 +31,14 @@ public class Competition {
 
     public void setNumberOfParticipants(long numberOfParticipants) {
         this.numberOfParticipants = numberOfParticipants;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public long getId() {
@@ -35,11 +49,21 @@ public class Competition {
         this.id = id;
     }
 
-    public Set<Round> getSchedule() {
-        return schedule;
+    public List<Round> getRounds() {
+        return rounds;
     }
 
-    public void setSchedule(Set<Round> schedule) {
-        this.schedule = schedule;
+    public void setRounds(List<Round> rounds) {
+        this.rounds = rounds;
+    }
+
+    @Override
+    public String toString() {
+        return "Competition{" +
+                "id=" + id +
+                ", numberOfParticipants=" + numberOfParticipants +
+                ", title='" + title + '\'' +
+                ", rounds=" + rounds +
+                '}';
     }
 }
