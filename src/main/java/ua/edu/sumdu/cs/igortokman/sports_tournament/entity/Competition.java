@@ -13,14 +13,12 @@ public class Competition {
     @Id
     private long id;
 
-    @Field("number_of_participants")
     private long numberOfParticipants = 1;
 
-    @Field("title")
     private String title;
 
-    @DBRef
-    private List<Round> rounds;
+//    @DBRef
+//    private List<Round> rounds = null;
 
     public long getNumberOfParticipants() {
         return numberOfParticipants;
@@ -46,13 +44,13 @@ public class Competition {
         this.id = id;
     }
 
-    public List<Round> getRounds() {
-        return rounds;
-    }
-
-    public void setRounds(List<Round> rounds) {
-        this.rounds = rounds;
-    }
+//    public List<Round> getRounds() {
+//        return rounds;
+//    }
+//
+//    public void setRounds(List<Round> rounds) {
+//        this.rounds = rounds;
+//    }
 
     @Override
     public String toString() {
@@ -60,7 +58,7 @@ public class Competition {
                 "id=" + id +
                 ", numberOfParticipants=" + numberOfParticipants +
                 ", title='" + title + '\'' +
-                ", rounds=" + rounds +
+//                ", rounds=" + rounds +
                 '}';
     }
 }

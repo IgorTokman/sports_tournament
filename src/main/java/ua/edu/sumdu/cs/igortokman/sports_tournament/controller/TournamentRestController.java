@@ -28,12 +28,26 @@ public class TournamentRestController {
 
     private static final String COMPLETED_STATUS = "completed";
 
-    @GetMapping(path = "/competition/{id}/rounds.json", produces = "application/json")
+    @GetMapping(path = "/competition/{id}", produces = "application/json")
     @ResponseBody
-    public List<Round> getScheduleJsonByCompetitionId(@PathVariable Long id) {
+    public Competition getCompetitionJsonByCompetitionId(@PathVariable Long id) {
 
-        return competitionService.getRoundsByCompetitionId(id);
+        return competitionService.getCompetitionById(id);
     }
+
+    @GetMapping(path = "/competitions", produces = "application/json")
+    @ResponseBody
+    public List<Competition> getCompetitionsJson() {
+        System.out.println("/competitions///");
+        return competitionService.getAllCompetitions();
+    }
+
+//    @GetMapping(path = "/competition/{id}/rounds.json", produces = "application/json")
+//    @ResponseBody
+//    public List<Round> getScheduleJsonByCompetitionId(@PathVariable Long id) {
+//
+//        return competitionService.getRoundsByCompetitionId(id);
+//    }
 
     @GetMapping(path = "/competition/{title}/rounds", produces = "application/json")
     @ResponseBody
@@ -42,12 +56,12 @@ public class TournamentRestController {
         return competitionService.getCompetitionsByCompetitionTitle(title);
     }
 
-    @GetMapping(path = "/competition/{id}/matches/{status}", produces = "application/json")
-    @ResponseBody
-    public List<Match> getMatchesJsonByStatus(@PathVariable Long id, @PathVariable(required = false) String status) {
-
-        return competitionService.getMatchesByCompetitionId(id, ((null != status) && status.equalsIgnoreCase(COMPLETED_STATUS)));
-    }
+//    @GetMapping(path = "/competition/{id}/matches/{status}", produces = "application/json")
+//    @ResponseBody
+//    public List<Match> getMatchesJsonByStatus(@PathVariable Long id, @PathVariable(required = false) String status) {
+//
+//        return competitionService.getMatchesByCompetitionId(id, ((null != status) && status.equalsIgnoreCase(COMPLETED_STATUS)));
+//    }
 
     @PostMapping("/match")
     public Match updateMatch(@RequestBody String result) {
