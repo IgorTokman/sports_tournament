@@ -1,7 +1,9 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.*;
 
@@ -11,12 +13,17 @@ public class Match {
     @Id
     private long id;
 
+    @DBRef
     private Result result;
+
+    @Field("is_completed")
     private boolean isCompleted;
 
     // TODO: review the need to use match/result relationships/entities
+    @DBRef
     private List<Team> teams = new ArrayList<>();
 
+    @DBRef
     private Round round;
 
     public Round getRound() {

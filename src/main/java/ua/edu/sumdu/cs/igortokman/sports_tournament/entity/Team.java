@@ -1,7 +1,9 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Set;
 
@@ -10,8 +12,10 @@ public class Team {
     @Id
     private long id;
 
+    @Field("title")
     private String title;
 
+    @DBRef
     private Set<Match> matches;
 
     public Team(String title) {
