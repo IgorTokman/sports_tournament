@@ -1,31 +1,17 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.*;
 
-@Entity
-@Table(name="round")
+@Document(collection = "round")
 public class Round {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "round_id")
     private long id;
 
-    @OneToMany(mappedBy = "round", cascade=CascadeType.ALL,
-            fetch = FetchType.LAZY, orphanRemoval=true)
-    @JsonManagedReference
     private List<Match> matches = new ArrayList<>();
-
-    @Temporal(TemporalType.DATE)
-    @Column
     private Date date;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "competition_id")
-    @JsonBackReference
     private Competition competition;
 
     public Competition getCompetition() {

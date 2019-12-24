@@ -1,37 +1,22 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.*;
 
-@Entity
-@Table(name="match")
+@Document(collection = "match")
 public class Match {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "match_id")
     private long id;
 
-    @OneToOne(mappedBy = "match", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private Result result;
-
-    @Column(name = "is_completed")
     private boolean isCompleted;
 
-    // TODO: review the need to use match/result relationships/entities.
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinTable(name = "match_team",
-            joinColumns = @JoinColumn(name = "match_id"),
-            inverseJoinColumns = @JoinColumn(name = "team_id"))
-    @JsonManagedReference
+    // TODO: review the need to use match/result relationships/entities
     private List<Team> teams = new ArrayList<>();
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "round_id")
-    @JsonBackReference
     private Round round;
 
     public Round getRound() {
