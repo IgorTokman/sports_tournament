@@ -1,6 +1,7 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -9,14 +10,14 @@ import java.util.Set;
 
 @Document(collection = "team")
 public class Team {
+    @Transient
+    private static int counter = 1;
+
     @Id
-    private long id;
+    private long id = counter++;
 
     @Field("title")
     private String title;
-
-    @DBRef
-    private Set<Match> matches;
 
     public Team(String title) {
         this.title = title;
@@ -41,14 +42,6 @@ public class Team {
         this.title = title;
     }
 
-    public Set<Match> getMatches() {
-        return matches;
-    }
-
-    public void setMatches(Set<Match> matches) {
-        this.matches = matches;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,8 +50,7 @@ public class Team {
         Team team = (Team) o;
 
         if (id != team.id) return false;
-        if (title != null ? !title.equals(team.title) : team.title != null) return false;
-        return !(matches != null ? !matches.equals(team.matches) : team.matches != null);
+        return !(title != null ? !title.equals(team.title) : team.title != null);
 
     }
 
@@ -66,7 +58,6 @@ public class Team {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (matches != null ? matches.hashCode() : 0);
         return result;
     }
 

@@ -33,18 +33,17 @@ public class TournamentController {
 
     @RequestMapping(value = "/competition", method = RequestMethod.POST)
     public String createCompetition(@ModelAttribute Competition competition) {
-        System.out.println(competition);
         long id = competitionService.add(competition);
-        System.out.println(id);
-        return "redirect:/competition/" + id;
+
+        return "redirect:/api/competition/" + id;
     }
 
-//    @RequestMapping(value = "/competition/{id}/rounds.html", method = RequestMethod.GET)
-//    public String getScheduleByCompetitionId(@PathVariable Long id, Model model) {
-//        List<Round> rounds = competitionService.getRoundsByCompetitionId(id);
-//        model.addAttribute("rounds", rounds);
-//
-//        return "main";
-//    }
+    @RequestMapping(value = "/competition/{id}/rounds.html", method = RequestMethod.GET)
+    public String getScheduleByCompetitionId(@PathVariable Long id, Model model) {
+        List<Round> rounds = competitionService.getRoundsByCompetitionId(id);
+        model.addAttribute("rounds", rounds);
+
+        return "main";
+    }
 }
 

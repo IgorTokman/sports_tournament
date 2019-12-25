@@ -26,7 +26,6 @@ public class MatchService {
         result.setIsDeadHeat(isDeadHeat);
         match.setIsCompleted(true);
 
-        match.setResult(result);
         matchRepository.save(match);
 
         return match;

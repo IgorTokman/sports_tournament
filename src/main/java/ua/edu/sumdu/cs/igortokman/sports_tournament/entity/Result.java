@@ -1,17 +1,19 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "result")
 public class Result {
-    @Id
-    private long id;
 
-    @DBRef
-    private Match match;
+    @Transient
+    private static int counter = 1;
+
+    @Id
+    private long id = counter++;
 
     @Field("is_dead_heat")
     private boolean isDeadHeat;
@@ -22,7 +24,6 @@ public class Result {
     public String toString() {
         return "Result{" +
                 "id=" + id +
-                ", match=" + match +
                 ", isDeadHeat=" + isDeadHeat +
                 ", winner=" + winner +
                 '}';
@@ -34,14 +35,6 @@ public class Result {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Match getMatch() {
-        return match;
-    }
-
-    public void setMatch(Match match) {
-        this.match = match;
     }
 
     public boolean isDeadHeat() {

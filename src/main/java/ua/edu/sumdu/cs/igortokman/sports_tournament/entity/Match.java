@@ -1,6 +1,7 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -10,11 +11,11 @@ import java.util.*;
 @Document(collection = "match")
 public class Match {
 
-    @Id
-    private long id;
+    @Transient
+    private static int counter = 1;
 
-    @DBRef
-    private Result result;
+    @Id
+    private long id = counter++;
 
     @Field("is_completed")
     private boolean isCompleted;
@@ -22,17 +23,6 @@ public class Match {
     // TODO: review the need to use match/result relationships/entities
     @DBRef
     private List<Team> teams = new ArrayList<>();
-
-    @DBRef
-    private Round round;
-
-    public Round getRound() {
-        return round;
-    }
-
-    public void setRound(Round round) {
-        this.round = round;
-    }
 
     public boolean isCompleted() {
         return isCompleted;
@@ -48,14 +38,6 @@ public class Match {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Result getResult() {
-        return result;
-    }
-
-    public void setResult(Result result) {
-        this.result = result;
     }
 
     public List<Team> getTeams() {

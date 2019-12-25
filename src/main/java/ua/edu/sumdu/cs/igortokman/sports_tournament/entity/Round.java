@@ -1,6 +1,7 @@
 package ua.edu.sumdu.cs.igortokman.sports_tournament.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -9,25 +10,18 @@ import java.util.*;
 
 @Document(collection = "round")
 public class Round {
+
+    @Transient
+    private static int counter = 1;
+
     @Id
-    private long id;
+    private long id = counter++;
 
     @DBRef
     private List<Match> matches = new ArrayList<>();
 
     @Field("date")
     private Date date;
-
-    @DBRef
-    private Competition competition;
-
-    public Competition getCompetition() {
-        return competition;
-    }
-
-    public void setCompetition(Competition competition) {
-        this.competition = competition;
-    }
 
     public List<Match> getMatches() {
         return matches;
