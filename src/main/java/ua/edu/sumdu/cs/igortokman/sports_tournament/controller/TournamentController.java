@@ -35,7 +35,7 @@ public class TournamentController {
     public String createCompetition(@ModelAttribute Competition competition) {
         long id = competitionService.add(competition);
 
-        return "redirect:/api/competition/" + id;
+        return "redirect:/competition/" + id + "/rounds.html";
     }
 
     @RequestMapping(value = "/competition/{id}/rounds.html", method = RequestMethod.GET)

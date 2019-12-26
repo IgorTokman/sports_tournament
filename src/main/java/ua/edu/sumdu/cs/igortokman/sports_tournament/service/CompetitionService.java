@@ -131,8 +131,6 @@ public class CompetitionService {
         competition.setRounds(rounds);
         competitionRepository.save(competition);
 
-        System.out.println(competition);
-
         return competition.getId();
     }
 }

@@ -24,6 +24,17 @@ public class Match {
     @DBRef
     private List<Team> teams = new ArrayList<>();
 
+    @DBRef
+    private Result result;
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
     public boolean isCompleted() {
         return isCompleted;
     }
