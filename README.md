@@ -6,4 +6,3 @@ To start the application it is necessary to execute the following commands:
 
 TODOs:
 - implement a graphical user interface for individual API methods (instead of raw json interaction)
-- migrate application to embedded mongodb
