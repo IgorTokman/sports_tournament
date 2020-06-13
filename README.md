@@ -1,4 +1,4 @@
-# sports_tournament
+# sports-tournament
 
 To start the application it is necessary to execute the following commands:
 - mvn clean package
